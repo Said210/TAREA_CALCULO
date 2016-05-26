@@ -1,97 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="tarea">
 <head>
 	<meta charset="UTF-8">
 	<title>GRAFICADOR</title>
-	<script ssrc=""></script>
+	<link rel="stylesheet" href="assets/css/app.css">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<style>
-			*, *:before, *:after {
-		  box-sizing: border-box;
-		}
-		body{
-			padding: 0px;
-			margin: 0px;
-		}
-		#equation, #ok{
-			position: fixed;
-			top: 1rem;
-		}
-		#equation{
-			width: 80%;
-			height: 3rem;
-			box-shadow: 0px 0px 5px 0px rgba(40,40,40,.5);
-			border-radius: 3px;
-			border: none;
-			font-size: 2rem;
-			padding-left: 1rem;
-			left: 10%;
-		}
-		#ok{
-			right: 12%;
-			margin-top: .5rem;
-		}
-		.path{
-			position: absolute;
-			z-index: 3;
-			bottom: 3rem;
-			left: 3rem;
-		}
-		.direction{
-			display: inline-block;
-			background-color: red;
-			padding: 0.5rem;
-		}
-		#up{
-			transform: rotate(90deg);
-			margin-left: 1rem;
-		}
-		#down{
-			transform: rotate(90deg);
-			margin-left: 1rem;
-		}
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-		#ok{
-			background-color: #27ae60;
-			border-radius: 100%;
-			color: #FFF;
-			width: 2rem;
-			height: 2rem;
-			text-align: center;
-			padding-top: .4rem;
-		}
-	</style>
 </head>
-<body onload="init_settings(); initial_setup(); clear_canvas()" onresize="resize()">
+<body id="body" ng-controller="app_controller">
+	<div id="loading">
+		<h1>G R A F I C A N D O</h1>
+		<img src="assets/images/loading.gif" alt="">
+	</div>
 	<input type="text" id="equation" placeholder="Y = ">
-	<div onclick="add_to_list()" id="ok">:)</div>
+	<div onclick="add_to_list()" id="ok"><i class="ion-checkmark"></i></div>
 	<canvas id="canvas" width="500" height="500" style="border: 1px solid #333"></canvas>
 
 
 	<div class="path">
-		<div id="up" class="direction" onclick="move(0,100)"><-</div><br>
-		<div id="left" class="direction" onclick="move(100,0)"><-</div>
-		<div id="right" class="direction" onclick="move(-100,0)">-></div><br>
-		<div id="down" class="direction" onclick="move(0,-100)">-></div>
-		<p>
+		<div id="up" class="direction" onclick="move(0,100)"><div class="ion-arrow-left-a"></div></div><br>
+		<div id="left" class="direction" onclick="move(100,0)"><div class="ion-arrow-left-a"></div></div>
+		<div id="right" class="direction" onclick="move(-100,0)"><div class="ion-arrow-right-a"></div></div><br>
+		<div id="down" class="direction" onclick="move(0,-100)"><div class="ion-arrow-right-a"></div></div>
+		<p><sub>
 			<span id="min"></span>*
 			<span id="mid"></span>*
 			<span id="max"></span>
-		</p>
+		</sub></p>
 	</div>
 	
 	<aside id="functions">
-		<div class="function">
+		<div class="function" ng-repeat="f in functions">
+			<p><b><span id="function">{{f}}</span></b></p>
 			<div class="actions">
-				<div class="action"></div>
-				<div class="action"></div>
+				<span class="action" ng-click="delete_f($index)"><i class="ion-ios-close-outline"></i></span>
+				<span class="action" ng-click="edit_f($index)"><i class="ion-edit"></i></span>
 			</div>
-			<p><b><span id="function">Holi</span></b></p>
 		</div>
 	</aside>
 
-	<script src="assets/js/app.js">
-		// WOLPHI ID: LX3PV6-U6EAUVL3L8
-	</script>
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/app.js"></script>
 </body>
 </html>
